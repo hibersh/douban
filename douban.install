@@ -1,5 +1,11 @@
 <?php
 /**
+ * @file
+ * Install, update and uninstall functions for the ._douban module.
+ *
+ */
+
+/**
  * Implementation of hook_schema().
  */
 function douban_schema() {
@@ -31,7 +37,7 @@ function douban_schema() {
         'description' => 'token information',
         'not null' => true,
         'serialize' => true,
-        'size' => 'medium'
+        'size' => 'medium',
       ),
     ),
     'indexes' => array('douban_name' => array('douban_name')),

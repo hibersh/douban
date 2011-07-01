@@ -8,7 +8,7 @@
  * Setting API key and secret key at settings page.
  */
 function douban_admin_settings() {
-  $module_path = drupal_get_path('module', 'douban') .'/images/';
+  $module_path = drupal_get_path('module', 'douban') . '/images/';
   $form = array();
   $form['douban_consumer_key'] = array(
     '#type' => 'textfield',
@@ -28,7 +28,7 @@ function douban_admin_settings() {
   );
   $form['douban_button']['image'] = array(
     '#type' => 'item',
-    '#value' =>  theme_image($module_path .'douban_button.gif'),
+    '#value' => theme_image($module_path . 'douban_button.gif'),
   );
   return system_settings_form($form);
 }
@@ -42,15 +42,17 @@ function douban_admin_users() {
   while ($o = db_fetch_object($result)) {
     $destination = array('query' => drupal_get_destination());
     $table[] = array(
-      theme('username', $o),
-      l(t('Unbind user'), 'user/'.$o->uid.'/douban/unbind', $destination),
-      l(t('Delete user'), 'user/'.$o->uid.'/delete', $destination)
+      theme('username', array('account' => $o)),
+      l(t('Unbind user'), 'user/' . $o->uid . '/douban/unbind', $destination),
+      l(t('Delete user'), 'user/' . $o->uid . '/delete', $destination),
     );
   }
   if ($table) {
-    $output =  theme('table', array(), $table);
+    $output =  theme('table', array('header' => array(), 'rows' => $table));
+    // TODO Please change this theme call to use an associative array for the $variables parameter.
     $output .= theme('pager');
-  } else {
+  }
+  else {
     $output = t('No Douban account');
   }
 
